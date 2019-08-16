@@ -8,10 +8,10 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const weather = require('./lib/routes/weather');
-const index = require('./lib/routes/index');
-const ip = require('./lib/modules/ip');
-const cachemanager = require('./lib/modules/cachemanager');
+const weather = require('./src/routes/weather');
+const index = require('./src/routes/index');
+const ip = require('./src/modules/ip');
+const cachemanager = require('./src/modules/cachemanager');
 const bluebird = require("bluebird")
 
 

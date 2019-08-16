@@ -1,12 +1,13 @@
 {
-  "name": "untitled",
-  "version": "0.0.0",
+  "name": "weather",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node server"
   },
   "dependencies": {
     "@babel/core": "^7.5.5",
+    "babel-polyfill": "^6.26.0",
     "bluebird": "^3.5.5",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",

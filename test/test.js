@@ -1,6 +1,6 @@
 const should = require('should');
 const app = require("../app.js")
-const cachemanager = require("../lib/modules/cachemanager")
+const cachemanager = require("../src/modules/cachemanager")
 
 
 describe("Location", function () {
@@ -14,7 +14,7 @@ describe("Location", function () {
 
     it("Location not null", async function () {
 
-        const ip = require("../lib/modules/ip")
+        const ip = require("../src/modules/ip")
 
         let json = await ip.getLocationInfo()
 
@@ -25,7 +25,7 @@ describe("Location", function () {
 
     it("Location has ip", async function () {
 
-        const ip = require("../lib/modules/ip")
+        const ip = require("../src/modules/ip")
 
         let json = await ip.getLocationInfo()
 
@@ -40,7 +40,7 @@ describe("Location", function () {
 
     it("Location saved in memory", async function () {
 
-        const ip = require("../lib/modules/ip")
+        const ip = require("../src/modules/ip")
         ip.location = null;
         await ip.getLocationInfo()
         should(ip.location).be.not.null()
