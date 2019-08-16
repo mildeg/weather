@@ -6,12 +6,25 @@
     "start": "node app.js"
   },
   "dependencies": {
+    "@babel/core": "^7.5.5",
+    "bluebird": "^3.5.5",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^8.0.0",
+    "gulp-cached": "^1.1.1",
+    "gulp-plumber": "^1.2.1",
+    "gulp-print": "^5.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-util": "^3.0.8",
     "http-errors": "~1.6.3",
+    "mocha": "^6.2.0",
     "morgan": "~1.9.1",
-    "pug": "2.0.0-beta11"
+    "pug": "2.0.0-beta11",
+    "redis": "^2.8.0",
+    "request": "^2.88.0",
+    "should": "^13.2.3"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
