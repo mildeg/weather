@@ -10,14 +10,28 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const weather = require('./lib/routes/weather');
 const index = require('./lib/routes/index');
-const ip = require('./lib/api/ip');
+const ip = require('./lib/modules/ip');
+const cachemanager = require('./lib/modules/cachemanager');
+const bluebird = require("bluebird")
+
+
 ip.setLocationInfo();
-// console.log(weather.getRoutes())
 let app = express();
+const redis = require('redis');
+let client = redis.createClient();
+cachemanager.redis = client
+cachemanager.startPromise = bluebird.pending()
+client.on('connect', function () {
+    cachemanager.startPromise.resolve()
+    cachemanager.started = true;
+});
+
 
 // view engine setup
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -46,11 +60,18 @@ app.use(function (err, req, res, next) {
 });
 
 let port = config.port
+app.ready = new Promise((resolve, reject) => {
+    try {
+        app.listen(port, function () {
+            resolve()
+            console.log(`App starts on ${port}`)
 
-app.listen(port, function () {
+        });
+    } catch (e) {
+        reject(e)
+    }
 
-    console.log(`App starts on ${port}`)
-});
 
+})
 
 module.exports = app;
