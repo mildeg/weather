@@ -6,7 +6,7 @@
 * instalar los paquetes npm   ``` npm install ```
 * iniciar el servidor ```npm start```
 
-Por defecto la aplicacion iniciara en el puerto 4040 `, puede modificarse desde el archivo `config.json`
+Por defecto la aplicacion iniciara en el puerto 4040 `http://localhost:4040/` , puede modificarse desde el archivo `config.json`
 
 Para correr los tests, se puede usar el comando preparado `npm test`
 
