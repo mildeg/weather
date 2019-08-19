@@ -14,7 +14,6 @@ class ip {
                 }
                 try {
                     cls.location = JSON.parse(body)
-                    console.log("ip location setted")
                     resolve()
                 } catch (e) {
                     console.error(e)

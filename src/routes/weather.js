@@ -24,11 +24,10 @@ class weatherApi {
         return new Promise((resolve, reject) => {
 
             params.appid = config.keyid
-
+            params.units = config.units
             let request = require('request')
             let requestdata = {method: "get"}
             requestdata.url = base + endpoint + convertObjectToQueryString(params), "QS"
-            console.log("Fetching..." + requestdata.url)
 
 
             request(requestdata, function (err, res, body) {
@@ -86,7 +85,6 @@ class weatherApi {
 
             let cached = await cachemanager.get(redisHash)
             if (cached) {
-                console.log("return from cache")
                 res.send(JSON.parse(cached))
                 return;
             }

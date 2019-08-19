@@ -1,16 +1,13 @@
 const should = require('should');
-const app = require("../app.js")
+const app = require("../app")
 const cachemanager = require("../src/modules/cachemanager")
+const request = require('supertest');
+const ip = require("../src/modules/ip")
+
 
 
 describe("Location", function () {
 
-    before(async () => {
-
-        await app.ready
-        console.log("app iniciada")
-
-    });
 
     it("Location not null", async function () {
 
@@ -40,7 +37,7 @@ describe("Location", function () {
 
     it("Location saved in memory", async function () {
 
-        const ip = require("../src/modules/ip")
+
         ip.location = null;
         await ip.getLocationInfo()
         should(ip.location).be.not.null()
@@ -67,7 +64,6 @@ describe("Redis Cache", function () {
 
         let cleanValue = await cachemanager.get("test#keyOne")
 
-        console.log(cleanValue)
 
         should(cleanValue).be.null()
 
@@ -75,3 +71,101 @@ describe("Redis Cache", function () {
 
 
 })
+
+
+describe('Routing test', function () {
+
+    it('location info', async function () {
+
+        let response = await request(app).get('/v1/location')
+
+
+        let stringResponse = response.text
+
+        let mustResponse = JSON.stringify(await ip.getLocationInfo())
+
+
+        should(stringResponse).be.equal(mustResponse)
+
+    });
+
+
+    it('current city info', async function () {
+
+        let response = await request(app).get('/v1/current')
+        let weatherData = JSON.parse(response.text)
+        let location = await ip.getLocationInfo()
+
+        should(weatherData.coord.lat.toFixed(2)).be.equal(location.lat.toFixed(2))
+        should(weatherData.coord.lon.toFixed(2)).be.equal(location.lon.toFixed(2))
+
+
+    });
+
+
+    it('cordoba weather', async function () {
+
+        let cordoba = {
+            "id": 3860259,
+            "name": "Cordoba",
+            "country": "AR",
+            "coord": {
+                "lon": -64.181053,
+                "lat": -31.4135
+            }
+        }
+
+        let response = await request(app).get('/v1/current/' + cordoba.id)
+        let weatherData = JSON.parse(response.text)
+
+        should(weatherData).have.key("weather")
+        should(cordoba.name).be.equal(weatherData.name)
+
+
+    });
+
+
+    it('cordoba forecast', async function () {
+
+        let cordoba = {
+            "id": 3860259,
+            "name": "Cordoba",
+            "country": "AR",
+            "coord": {
+                "lon": -64.181053,
+                "lat": -31.4135
+            }
+        }
+
+        let response = await request(app).get('/v1/forecast/' + cordoba.id)
+        let weatherData = JSON.parse(response.text)
+        should(weatherData).have.key("list")
+        should(cordoba.name).be.equal(weatherData.city.name)
+
+
+
+
+    });
+
+
+    it('current forecast', async function () {
+
+
+
+        let response = await request(app).get('/v1/forecast/')
+        let weatherData = JSON.parse(response.text)
+        should(weatherData).have.key("list")
+
+
+        let location = await ip.getLocationInfo()
+        should(location.countryCode).be.equal(weatherData.city.country)
+
+    });
+
+
+
+
+
+
+})
+;

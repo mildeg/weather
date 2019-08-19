@@ -65,7 +65,7 @@ app.ready = new Promise((resolve, reject) => {
         app.listen(port, function () {
             resolve()
             console.log(`App starts on ${port}`)
-
+            app.serve = this;
         });
     } catch (e) {
         reject(e)
