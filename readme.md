@@ -6,7 +6,7 @@
 * instalar los paquetes npm   ``` npm install ```
 * iniciar el servidor ```npm start```
 
-Por defecto la aplicacion iniciara en el puerto 4040, puede modificarse desde el archivo `config.json`
+Por defecto la aplicacion iniciara en el puerto 4040 `, puede modificarse desde el archivo `config.json`
 
 Para correr los tests, se puede usar el comando preparado `npm test`
 
@@ -17,6 +17,7 @@ como servicio http externo no era posible obtenerla.
 * Como entre ip-api y weather no hay un codigo general que se pueda usar para obtener
 los datos de la ciudad actual, se usan latitud y longitud para corroborar que sean correctos
 los datos obtenidos.
+* Las consultas a la api de weather se hacen unicamente a travez de cityid.
 
 
 ##### Cache
