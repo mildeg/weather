@@ -54,7 +54,6 @@ describe("Location", function () {
 })
 
 
-let settings = args.settingsfile
 
 
 describe("Redis Cache", function () {
