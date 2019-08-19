@@ -95,6 +95,7 @@ const app = new Vue({
         return {
             response: null,
             cities: [
+
                 {
                     "id": 3432039,
                     "name": "Partido de La Plata",
@@ -127,6 +128,15 @@ const app = new Vue({
                     "coord": {
                         "lon": -56.167351,
                         "lat": -34.833462
+                    }
+                },
+                {
+                    "id": 707860,
+                    "name": "Hurzuf",
+                    "country": "UA",
+                    "coord": {
+                        "lon": 34.283333,
+                        "lat": 44.549999
                     }
                 },
             ],
