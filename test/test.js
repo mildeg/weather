@@ -1,9 +1,15 @@
 const should = require('should');
+const minimist = require("minimist")
+let args = minimist(process.argv.slice(2));
+/*Para evitar posibles problemas al correr los test, se cambia el archivo de configuracion al estandar de testeo*/
+if (!args.settingsfile) {
+    process.argv.push("--settingsfile=config-test")
+}
+
 const app = require("../app")
 const cachemanager = require("../src/modules/cachemanager")
 const request = require('supertest');
 const ip = require("../src/modules/ip")
-
 
 
 describe("Location", function () {
@@ -46,6 +52,9 @@ describe("Location", function () {
 
 
 })
+
+
+let settings = args.settingsfile
 
 
 describe("Redis Cache", function () {
@@ -143,13 +152,10 @@ describe('Routing test', function () {
         should(cordoba.name).be.equal(weatherData.city.name)
 
 
-
-
     });
 
 
     it('current forecast', async function () {
-
 
 
         let response = await request(app).get('/v1/forecast/')
@@ -161,10 +167,6 @@ describe('Routing test', function () {
         should(location.countryCode).be.equal(weatherData.city.country)
 
     });
-
-
-
-
 
 
 })

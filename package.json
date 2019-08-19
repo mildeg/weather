@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node server",
-    "test": "./node_modules/mocha/bin/mocha test/test --exit --timeout=20000"
+    "test": "./node_modules/mocha/bin/mocha test/test  --settingsfile=config-test --exit --timeout=20000"
   },
   "dependencies": {
     "@babel/core": "^7.5.5",

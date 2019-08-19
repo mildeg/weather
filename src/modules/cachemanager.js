@@ -1,3 +1,5 @@
+let config = global.config;
+
 class cachemanager {
 
 
@@ -5,8 +7,9 @@ class cachemanager {
         if (this.started) {
             await this.startPromise
         }
+
         return new Promise((resolve, reject) => {
-            this.redis.del(key, function (err, reply) {
+            this.redis.del(config["redis-key"] + "#" + key, function (err, reply) {
                 if (err) {
                     reject(err)
                 } else {
@@ -22,7 +25,7 @@ class cachemanager {
             await this.startPromise
         }
         return new Promise((resolve, reject) => {
-            this.redis.set(key, value, function (err, reply) {
+            this.redis.set(config["redis-key"] + "#" + key, value, function (err, reply) {
                 if (err) {
                     reject(err)
                 } else {
@@ -42,7 +45,7 @@ class cachemanager {
             await this.startPromise
         }
         return new Promise((resolve, reject) => {
-            this.redis.get(key, function (err, reply) {
+            this.redis.get(config["redis-key"] + "#" + key, function (err, reply) {
                 if (err) {
                     reject(err)
                 } else {

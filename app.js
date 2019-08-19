@@ -1,8 +1,11 @@
 const fs = require("fs")
+const minimist = require("minimist")
+let args = minimist(process.argv.slice(2));
 
-let config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
+let settings = args.settingsfile ? args.settingsfile + ".json" : "config.json"
+let config = JSON.parse(fs.readFileSync(settings, 'utf8'));
 global.config = config
-
+console.log("Lodading configuration file " + settings)
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
